@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const travelSchema = mongoose.Schema(
   {
     speed: { type: Number, required: true },
-    spaceYears: { type: String, required: true },
-    earthYears: { type: String, required: true },
-    direction: { type: String, required: true },
+    spaceYears: { type: Number, required: true },
+    earthYears: { type: Number, required: true },
+    direction: { type: String, default: "Future" },
+    userId: { type: String, required: true },
   },
   { timestamps: true }
 );
