@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,35 @@ function Home() {
     localStorage.setItem("userId", uuid);
     userId = localStorage.getItem("userId");
   }
+  const getToken = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const res = await axios.get("http://localhost:5000/api/home", {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+
+      console.log(res.data);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        try {
+          const refreshRes = await axios.post(
+            "http://localhost:5000/api/refresh",
+            {},
+            { withCredentials: true }
+          );
+          localStorage.setItem("accessToken", refreshRes.data.accessToken);
+        } catch (error) {
+          localStorage.removeItem("accessToken");
+          navigate("/login");
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
