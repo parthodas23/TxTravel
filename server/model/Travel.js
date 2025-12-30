@@ -4,7 +4,8 @@ const travelSchema = mongoose.Schema(
   {
     speed: { type: Number, required: true },
     spaceYears: { type: Number, required: true },
-    earthYears: { type: Number, required: true },
+    earthAge: { type: Number },
+    earthYears: { type: Number },
     direction: { type: String, default: "Future" },
     userId: { type: String, required: true },
   },

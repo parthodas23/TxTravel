@@ -2,12 +2,13 @@ import jwt from "jsonwebtoken";
 import User from "../model/User.js";
 import bcrypt from "bcrypt";
 import { ENV } from "../lib/ENV.js";
+
 const generateAccessToken = (user) => {
-  return jwt.sign({ id: user._id }, ENV.ACCESS_SECRET, { expiresIn: "15s" });
+  return jwt.sign({ id: user._id }, ENV.ACCESS_SECRET, { expiresIn: "15m" });
 };
 
 const generateRefreshToken = (user) => {
-  return jwt.sign({ id: user._id }, ENV.REFRESH_SECRET, { expiresIn: "30s" });
+  return jwt.sign({ id: user._id }, ENV.REFRESH_SECRET, { expiresIn: "30d" });
 };
 
 export const register = async (req, res) => {
@@ -44,7 +45,7 @@ export const login = async (req, res) => {
       sameSite: "strict",
     });
 
-    res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken, userId: user._id });
   } catch (error) {
     console.log("Login Error", error);
     res.status(500).json(error);
