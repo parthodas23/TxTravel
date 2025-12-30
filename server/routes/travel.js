@@ -5,11 +5,12 @@ const router = Router();
 
 router.post("/travel", async (req, res) => {
   try {
-    const { speed, spaceYears, direction,userId } = req.body;
+    const { speed, spaceYears, direction,userId,earthAge } = req.body;
 
     const data = new Travel({
       speed,
       spaceYears,
+      earthAge,
       earthYears: timeCalculator(spaceYears, speed),
       direction,
       userId
