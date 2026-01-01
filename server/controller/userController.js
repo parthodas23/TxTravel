@@ -42,7 +42,8 @@ export const login = async (req, res) => {
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "lax",
+      secure: false,
     });
 
     res.status(200).json({ accessToken, userId: user._id });
@@ -55,12 +56,12 @@ export const login = async (req, res) => {
 export const refresh = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    const user = await User.findOne({ refreshToken });
-    if (!user) return res.status(401).json("User doesn't exist.");
 
-    jwt.verify(refreshToken, ENV.REFRESH_SECRET, (err, decoded) => {
+    jwt.verify(refreshToken, ENV.REFRESH_SECRET, async (err, decoded) => {
       if (err) return res.status(501).json(err);
-
+      const user = await User.findById(decoded.id);
+      if (!user || user.refreshToken !== refreshToken)
+        return res.status(401).json("User doesn't exist.");
       const newAccesToken = generateAccessToken(user);
 
       res.json({ accessToken: newAccesToken });
