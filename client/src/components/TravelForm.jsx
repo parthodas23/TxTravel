@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function TravelForm() {
+function TravelForm({ onResult }) {
   const [formData, setFormData] = useState({
     speed: 0.01,
-    spaceYears: 0,
-    earthAge: 0,
-    direction: "Future",
+    spaceYears: null,
+    earthAge: null,
+    direction: "future",
+    destination: "",
   });
+  const [directionError, setDirectionError] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ function TravelForm() {
       console.log(error);
     }
   };
+  onResult(formData);
   return (
     <div className="bg-white p-6 rounded-xl shadow-2xl">
       <form onSubmit={onSubmit} className="space-y-6">
@@ -34,8 +37,8 @@ function TravelForm() {
         </h1>
         <div className="flex flex-col gap-3">
           <label className="text-cyan-400 font-mono mb-2">
-            Travel Speed: <span className="font-bold">{formData.speed}c</span> (
-            c - light speed)
+            Travel Speed: <span className="font-bold">{formData.speed}c</span>{" "}
+            (c-light speed)
           </label>
           <input
             type="range"
@@ -57,13 +60,14 @@ function TravelForm() {
             <input
               type="number"
               value={formData.spaceYears}
+              placeholder="Travel years"
               onChange={(e) =>
                 setFormData({
                   ...formData,
                   spaceYears: parseFloat(e.target.value),
                 })
               }
-              className="py-2 px-4 border focus:ring-2 focus:ring-amber-600 rounded-2xl"
+              className="py-2 px-4 border focus:ring-2 focus:ring-amber-600 rounded-2xl font-semibold"
             />
           </label>
           <label className="flex flex-col gap-4">
@@ -72,6 +76,7 @@ function TravelForm() {
             </p>
             <input
               type="number"
+              placeholder="Your Age"
               value={formData.earthAge}
               onChange={(e) =>
                 setFormData({
@@ -79,29 +84,52 @@ function TravelForm() {
                   earthAge: parseFloat(e.target.value),
                 })
               }
-              className="py-2 px-4 border focus:ring-2 focus:ring-amber-600 rounded-2xl"
+              className="py-2 px-4 border focus:ring-2 focus:ring-amber-600 rounded-2xl font-semibold"
             />
           </label>
-          <label className="flex flex-col gap-4">
+          <label className="flex flex-col gap-3">
             <p className="text-cyan-400 font-mono">
               Direction (How long do you want to travel?)
             </p>
             <select
               name="direction"
-              className="py-2 px-4 border focus:ring-2 focus:ring-amber-600 rounded-2xl"
+              className="py-2 px-4 border focus:ring-2 focus:ring-amber-600 rounded-2xl font-semibold"
+              value={formData.direction}
+              onChange={(e) => {
+                const value = e.target.value;
+                // if (value === "past") {
+                //   setDirectionError(
+                //     "Past time travel isn't possible with current physics"
+                //   );
+                //   setFormData({ ...formData, direction: "future" });
+                // }
+                setFormData({ ...formData, direction: value });
+              }}
             >
               <option value="future">Future</option>
-              <option value="past">Past</option>
+              <option disabled value="past">
+                Past
+              </option>
             </select>
+
+            <div className="text-red-400 text-sm font-mono italic">
+              Past time travel isn't possible with current physics
+            </div>
           </label>
-        </div>
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="py-2 px-7 bg-cyan-600 rounded-2xl text-white hover:bg-cyan-700 cursor-pointer"
-          >
-            Start Travel
-          </button>
+          <label className="flex flex-col gap-4">
+            <p className="text-cyan-400 font-mono">
+              Destination (Where would you like to go?)
+            </p>
+            <input
+              type="text"
+              placeholder="Anciant Egypt, Mars Colony"
+              value={formData.destination}
+              onChange={(e) =>
+                setFormData({ ...formData, destination: e.target.value })
+              }
+              className="py-2 px-4 border focus:ring-2 focus:ring-amber-400 rounded-2xl font-semibold"
+            />
+          </label>
         </div>
       </form>
     </div>

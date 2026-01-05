@@ -61,7 +61,7 @@ export const refresh = async (req, res) => {
       if (err) return res.status(501).json(err);
       const user = await User.findById(decoded.id);
       if (!user || user.refreshToken !== refreshToken)
-        return res.status(401).json("User doesn't exist.");
+        return res.status(403).json("User doesn't exist.");
       const newAccesToken = generateAccessToken(user);
 
       res.json({ accessToken: newAccesToken });

@@ -18,7 +18,7 @@ function Login() {
         },
         { withCredentials: true }
       );
-      console.log(res.data);
+
       localStorage.setItem("userId", res.data.userId);
       localStorage.setItem("accessToken", res.data.accessToken);
       navigate("/");
