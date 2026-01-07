@@ -11,27 +11,11 @@ function TravelForm({ onResult }) {
   });
   const [directionError, setDirectionError] = useState("");
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const { speed, spaceYears, earthAge, direction } = formData;
-    const userId = localStorage.getItem("userId");
-    try {
-      const res = await axios.post("http://localhost:5000/api/travel", {
-        speed,
-        spaceYears,
-        earthAge,
-        direction,
-        userId,
-      });
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   onResult(formData);
   return (
     <div className="bg-white p-6 rounded-xl shadow-2xl">
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form className="space-y-6">
         <h1 className="text-xl font-extralight text-center">
           Choose speed. Bend time.
         </h1>

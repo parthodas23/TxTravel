@@ -2,12 +2,15 @@ import mongoose from "mongoose";
 
 const travelSchema = mongoose.Schema(
   {
-    speed: { type: Number, required: true },
+    speed: { type: Number, },
     spaceYears: { type: Number, required: true },
-    earthAge: { type: Number },
+    actualAge: { type: Number },
     earthYears: { type: Number },
+    friendAge:{type:Number},
     direction: { type: String, default: "Future" },
-    userId: { type: String, required: true },
+    destination: { type: String },
+    aiReview: { type: String },
+    userId: { type: String },
   },
   { timestamps: true }
 );
