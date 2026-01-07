@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
+import Result from "./pages/Result";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/result/:userId" element={<Result />} />
       </Routes>
     </BrowserRouter>
   );

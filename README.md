@@ -1,6 +1,14 @@
 # TxTravel (Time Travel Simulator)
 
+
+A project built with the MERN stack.  
+Users enter mission details, calculate time-travel results, and get AI-generated explanations using **Gemini 3**.  
+Authentication is handled with **JWT access + refresh tokens**.
+
+---
+
 A MERN-stack application that simulates time travel using relativistic time calculations and AI-generated explanations powered by Gemini 3.
+
 
 ## Features
 - User authentication with JWT (access & refresh tokens)

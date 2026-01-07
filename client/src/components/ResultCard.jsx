@@ -1,7 +1,15 @@
 import React from "react";
 import { calculateTime } from "../utils/calculateTime.js";
-
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function ResultCard({ result }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const userId = localStorage.getItem("userId");
+
+  const navigate = useNavigate();
+
   if (
     !result ||
     result.speed == null ||
@@ -22,10 +30,34 @@ function ResultCard({ result }) {
   const spaceYears = result.spaceYears;
   const earthAge = result.earthAge;
   const direction = result.direction;
-
+  const destination = result.destination;
   const earthYears = calculateTime(spaceYears, speed);
   const actualAge = earthAge + spaceYears;
   const friendAge = earthAge + earthYears;
+
+  const onSubmit = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post("http://localhost:5000/api/time-travel", {
+        speed,
+        spaceYears,
+        earthYears,
+        actualAge,
+        friendAge,
+        direction,
+        destination,
+        userId,
+      });
+
+      console.log(res.data);
+      setData(res.data);
+      navigate(`/result/${res.data._id}`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full bg-blue-950 p-6 rounded-2xl shadow-2xl">
@@ -86,8 +118,11 @@ function ResultCard({ result }) {
         </div>
       </div>
       <div className="flex justify-center mt-4">
-        <button className="bg-cyan-400 w-full py-3 px-8 text-white text-lg font-semibold rounded-2xl hover:bg-cyan-300 cursor-pointer">
-          Begin Time Travel
+        <button
+          onClick={onSubmit}
+          className="bg-cyan-400 w-full py-3 px-8 text-white text-lg font-semibold rounded-2xl hover:bg-cyan-300 cursor-pointer"
+        >
+          {loading ? "Treaveling...." : "Begin Time Travel"}
         </button>
       </div>
     </div>

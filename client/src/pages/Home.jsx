@@ -19,8 +19,6 @@ const Home = () => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   return (
     <div className="min-h-screen p-6 bg-slate-100">
       <h1 className="text-2xl text-center text-blue-900 font-semibold">
