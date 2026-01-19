@@ -19,6 +19,7 @@ function Register() {
           email,
           password,
         },
+        { withCredentials: true },
       );
 
       navigate("/");
