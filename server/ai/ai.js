@@ -8,23 +8,18 @@ const ai = async (
   actualAge,
   friendAge,
   direction,
-  destination
+  destination,
 ) => {
   try {
     const genAI = new GoogleGenAI(ENV.GEMINI_API_KEY);
 
     const prompt = `
-      Describe what happened to the user during their time travel journey and after it ended.
+      What happened to me during my time-travel journey, and what did the experience look and feel like?
 
-      Write strictly in second-person perspective using "you".And write it in way so everyone can understand easyily like use easy english word, clear.
+      I traveled through space at ${speed} toward ${destination || "Earth"} in the ${direction} direction for ${spaceYears} years. At this high speed, time around me slowed, while the universe outside moved much faster.
 
-
-      During the journey:
-      You accelerated to a speed of ${speed}, traveling through space for ${spaceYears} years toward ${destination} in the ${direction} direction. At this extreme speed, time around you slowed while the universe beyond your vessel moved far faster.
-
-      After the journey:
-      When the journey ended, you returned aged ${actualAge} years. A total of ${earthYears} years had passed on Earth, and a friend who stayed behind is now ${friendAge} years old. The difference in time is subtle but undeniable, leaving you changed by the journey.
-`;
+      When the journey ended, I returned aged ${actualAge} years. On Earth, ${earthYears} years had passed, and my friend is now ${friendAge} years old. Describe how this time difference changed me.
+    `;
 
     const res = await genAI.models.generateContent({
       model: "gemini-3-flash-preview",

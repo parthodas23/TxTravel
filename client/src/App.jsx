@@ -20,7 +20,7 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/result/:userId" element={<Result />} />
+        <Route path="/result/:travelId" element={<Result />} />
       </Routes>
     </BrowserRouter>
   );

@@ -24,8 +24,7 @@ router.post("/time-travel", async (req, res) => {
       earthYears === null ||
       actualAge === null ||
       friendAge === null ||
-      !direction ||
-      !destination
+      !direction
     )
       return res.status(400).json({ message: "Missing required fields." });
     aiReview = await ai(
@@ -35,7 +34,7 @@ router.post("/time-travel", async (req, res) => {
       actualAge,
       friendAge,
       direction,
-      destination
+      destination,
     );
   } catch (error) {
     res.status(500).json("server problem");
@@ -54,6 +53,18 @@ router.post("/time-travel", async (req, res) => {
   });
 
   res.status(201).json(savedData);
+});
+
+router.get("/travel-data/:travelId", async (req, res) => {
+  try {
+    const travelId = req.params.travelId;
+    
+    const data = await Travel.findById(travelId);
+
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(501).json(error);
+  }
 });
 
 export default router;
