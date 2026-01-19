@@ -12,12 +12,13 @@ app.use(express.json());
 
 connectDB();
 
-app.use(
-  cors({
-    origin: ENV.CLIENT_URL,
-    credentials: true,
-  }),
-);
+app.use(cors({
+  origin: "https://tx-travel.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+app.options("*", cors());
 app.use(cookieParser());
 
 app.use("/api", travelRoute);
