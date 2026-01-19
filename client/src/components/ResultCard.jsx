@@ -53,7 +53,7 @@ function ResultCard({ result }) {
       setData(res.data);
       navigate(`/result/${res.data._id}`);
     } catch (error) {
-      console.log(error);
+      error;
     } finally {
       setLoading(false);
     }

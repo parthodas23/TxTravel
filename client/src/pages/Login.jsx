@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,12 +11,12 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/login",
+        `${import.meta.env.VITE_API_URL}/api/login`,
         {
           email,
           password,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       localStorage.setItem("userId", res.data.userId);
@@ -58,6 +58,12 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
+        </div>
+        <div>
+          Don't have account?{" "}
+          <Link className="text-blue-800 font-semibold" to="/register">
+            SignUp
+          </Link>
         </div>
         <button className="px-3 py-2 mt-1 bg-amber-500 rounded-2xl text-white hover:bg-amber-600 cursor-pointer">
           Login

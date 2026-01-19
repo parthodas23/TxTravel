@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export const apiRequest = async (method, URL, data = null) => {
-  const BASE_URL = "http://localhost:5000/api";
+  
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
+
   try {
     const token = localStorage.getItem("accessToken");
     const res = await axios({
@@ -19,7 +21,7 @@ export const apiRequest = async (method, URL, data = null) => {
         const refreshRes = axios.post(
           `${BASE_URL}/refresh`,
           {},
-          { withCredentials: true }
+          { withCredentials: true },
         );
 
         const newAccessToken = refreshRes.accessToken;

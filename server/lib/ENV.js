@@ -8,4 +8,5 @@ export const ENV = {
   ACCESS_SECRET: process.env.ACCESS_SECRET,
   REFRESH_SECRET: process.env.REFRESH_SECRET,
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  CLIENT_URL: process.env.CLIENT_URL,
 };
