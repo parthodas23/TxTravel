@@ -37,6 +37,11 @@ app.use("/api", travelRoute);
 app.use("/api", userRoute);
 app.use("/api", aiRoute);
 
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+
 app.listen(ENV.PORT || 5000, () => {
   console.log("Server running on the port", ENV.PORT);
 });

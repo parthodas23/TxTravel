@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const apiRequest = async (method, URL, data = null) => {
-  
-  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   try {
     const token = localStorage.getItem("accessToken");
