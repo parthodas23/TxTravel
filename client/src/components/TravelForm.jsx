@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 function TravelForm({ onResult }) {
   const [formData, setFormData] = useState({
@@ -9,7 +8,6 @@ function TravelForm({ onResult }) {
     direction: "future",
     destination: "",
   });
-  const [directionError, setDirectionError] = useState("");
 
 
   onResult(formData);

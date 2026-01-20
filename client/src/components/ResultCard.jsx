@@ -38,16 +38,19 @@ function ResultCard({ result }) {
   const onSubmit = async () => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/time-travel", {
-        speed,
-        spaceYears,
-        earthYears,
-        actualAge,
-        friendAge,
-        direction,
-        destination,
-        userId,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/time-travel`,
+        {
+          speed,
+          spaceYears,
+          earthYears,
+          actualAge,
+          friendAge,
+          direction,
+          destination,
+          userId,
+        },
+      );
 
       console.log(res.data);
       setData(res.data);
