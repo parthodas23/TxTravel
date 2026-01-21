@@ -26,19 +26,20 @@ function Result() {
   }, []);
 
   return (
-    <div className="h-screen bg-slate-100 p-6 flex flex-col">
-      <h1 className="text-center mb-6 text-3xl font-semibold text-slate-800">
+    <div className="h-screen bg-slate-100 p-4 md:p-6 flex flex-col">
+      <h1 className="text-center mb-6 text-2xl md:text-3xl font-semibold text-slate-800">
         Travel Summary
       </h1>
 
-      <div className="flex-1 max-w-6xl mx-auto grid grid-cols-[320px_1fr] gap-6 overflow-hidden">
-        <div className="bg-white rounded-xl p-6 shadow h-fit">
+      <div className="flex-1 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[320px_1fr] gap-4 md:gap-6 overflow-hidden">
+        {/* Trip Details */}
+        <div className="bg-white rounded-xl p-4 md:p-6 shadow h-fit">
           <h2 className="text-lg font-medium text-slate-700 mb-4">
             Trip Details
           </h2>
 
           {data && (
-            <ul className="space-y-3 text-slate-600">
+            <ul className="space-y-3 text-slate-600 text-sm md:text-base">
               <li>
                 <span className="font-medium">Speed:</span> {data.speed}c
               </li>
@@ -61,7 +62,8 @@ function Result() {
           )}
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow overflow-y-auto">
+        {/* AI Review */}
+        <div className="bg-white rounded-xl p-4 md:p-6 shadow overflow-y-auto">
           <article className="prose prose-slate max-w-none">
             <ReactMarkdown>{data.aiReview}</ReactMarkdown>
           </article>

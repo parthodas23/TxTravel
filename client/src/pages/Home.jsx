@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import TravelForm from "../components/TravelForm";
 import ResultCard from "../components/ResultCard";
 import { apiRequest } from "../api/request";
@@ -8,7 +7,7 @@ const Home = () => {
   const [data, setData] = useState(null);
   const [resultData, setResultData] = useState(null);
 
-  const getHomeData = () => apiRequest("get", "/home");
+  const getHomeData = () => apiRequest("get", "/api/home");
 
   useEffect(() => {
     const fetchData = async () => {
